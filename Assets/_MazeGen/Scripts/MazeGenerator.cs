@@ -54,32 +54,36 @@ public class MazeGenerator : MonoBehaviour
         switch (dir)
         {
             case 0:
-                if (stack[stack.Count] < 0 && stack[stack.Count] > boxNumber)
+                if (stack.Count < 0 && stack.Count > boxNumber)
                 {
-                    map[stack[stack.Count] + 1].VisitBox("n");
+                    stack.Add(stack[stack.Count] + 1);
+                    map[stack[stack.Count]].VisitBox("n");
                 }
-                stack.Add(stack[stack.Count] + 1);
+                //stack.Add(stack[stack.Count] + 1);
                 break;
             case 1:
-                if (stack[stack.Count] < 0 && stack[stack.Count] > boxNumber)
+                if (stack.Count < 0 && stack.Count > boxNumber)
                 {
-                    map[stack[stack.Count] + collumn].VisitBox("w");
+                    stack.Add(stack[stack.Count] + collumn);
+                    map[stack[stack.Count]].VisitBox("w");
                 }
-                stack.Add(stack[stack.Count] + collumn);
+                //stack.Add(stack[stack.Count] + collumn);
                 break;
             case 2:
-                if (stack[stack.Count] < 0 && stack[stack.Count] > boxNumber)
+                if (stack.Count < 0 && stack.Count > boxNumber)
                 {
-                    map[stack[stack.Count] - 1].VisitBox("s");
+                    stack.Add(stack[stack.Count] - 1);
+                    map[stack[stack.Count]].VisitBox("s");
                 }
-                stack.Add(stack[stack.Count] - 1);
+                //stack.Add(stack[stack.Count] - 1);
                 break;
             case 3:
-                if (stack[stack.Count] < 0 && stack[stack.Count] > boxNumber)
+                if (stack.Count < 0 && stack.Count > boxNumber)
                 {
-                    map[stack[stack.Count] - collumn].VisitBox("e");
+                    stack.Add(stack[stack.Count] - collumn);
+                    map[stack[stack.Count]].VisitBox("e");
                 }
-                stack.Add(stack[stack.Count] - collumn);
+                //stack.Add(stack[stack.Count] - collumn);
                 break;
             default:
                 break;
