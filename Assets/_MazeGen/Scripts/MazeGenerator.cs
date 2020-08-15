@@ -54,7 +54,7 @@ public class MazeGenerator : MonoBehaviour
         switch (dir)
         {
             case 0:
-                if (stack.Count < 0 && stack[stack.Count] > boxNumber)
+                if (stack[stack.Count] < 0 && stack[stack.Count] > boxNumber)
                 {
                     map[stack[stack.Count] + 1].VisitBox("n");
                 }
