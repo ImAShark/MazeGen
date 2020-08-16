@@ -164,7 +164,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   box: {fileID: 973964576813942447, guid: ebcc613e6b1a9fe49936b23ecada1362, type: 3}
-  mazeGen: {fileID: 0}
   row: 5
   collumn: 5
   boxSpaceX: 4

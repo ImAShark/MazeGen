@@ -13,15 +13,18 @@ public class MazeGenerator : MonoBehaviour
     [SerializeField] private float boxSpaceX = 4; //room between boxes
     [SerializeField] private float boxSpaceZ = 4; //room between boxes
 
-    private Dictionary<int, BoxProperties> map;
     private List<int> stack;
+    private List<int> map;
+    private List<BoxProperties> boxes;
 
     private int boxNumber;
+    private int stackNumber;
 
     void Start()
     {
-        map = new Dictionary<int, BoxProperties>();
+        map = new List<int>();
         stack = new List<int>();
+        boxes = new List<BoxProperties>();
 
         mazeGen = GetComponent<MazeGenerator>();
         GenerateGrid();
@@ -35,7 +38,8 @@ public class MazeGenerator : MonoBehaviour
             for (int j = 0; j < collumn; j++)
             {
                 GameObject newBox = Instantiate(box, new Vector3(i * boxSpaceX, 0, j * boxSpaceZ), Quaternion.identity);
-                map.Add(boxNumber, newBox.GetComponent<BoxProperties>());
+                boxes.Add(newBox.GetComponent<BoxProperties>());                
+                map.Add(boxNumber);
                 boxNumber++;
             }
         }
@@ -43,9 +47,13 @@ public class MazeGenerator : MonoBehaviour
 
     private void GenerateMaze()
     {
-        map[0].VisitBox("w");
+        boxes[0].VisitBox("w");
         stack.Add(0);
-        SelectBox();
+
+        for (int i = 0; i < 200 * boxNumber; i++)
+        {
+            SelectBox();
+        }
     }
 
     private void SelectBox()
@@ -54,36 +62,59 @@ public class MazeGenerator : MonoBehaviour
         switch (dir)
         {
             case 0:
-                if (stack.Count < 0 && stack.Count > boxNumber)
+
+                stackNumber++;
+                Debug.Log(boxes[stack.Count].VisitCheck() + " s");
+                if (boxes[stack.Count] != null && !boxes[stack.Count].VisitCheck() && stack.Count < boxNumber - 1 )
                 {
-                    stack.Add(stack[stack.Count] + 1);
-                    map[stack[stack.Count]].VisitBox("n");
+                    boxes[stack[stackNumber - 1]].VisitBox("s");                    
+                    stack.Add(stackNumber);
                 }
-                //stack.Add(stack[stack.Count] + 1);
+                else
+                {
+                    stackNumber--;
+                }
+                
+
                 break;
             case 1:
-                if (stack.Count < 0 && stack.Count > boxNumber)
+                stackNumber++;
+                Debug.Log(boxes[stack.Count].VisitCheck() + " n");
+                if (boxes[stack.Count] != null && !boxes[stack.Count].VisitCheck() && stack.Count < boxNumber - 1)
                 {
-                    stack.Add(stack[stack.Count] + collumn);
-                    map[stack[stack.Count]].VisitBox("w");
+                    boxes[stack[stackNumber - 1]].VisitBox("n");
+                    stack.Add(stackNumber);
                 }
-                //stack.Add(stack[stack.Count] + collumn);
+                else
+                {
+                    stackNumber--;
+                }
                 break;
             case 2:
-                if (stack.Count < 0 && stack.Count > boxNumber)
+                stackNumber++;
+                Debug.Log(boxes[stack.Count].VisitCheck() + " w");
+                if (boxes[stack.Count] != null && !boxes[stack.Count].VisitCheck() && stack.Count < boxNumber - 1)
                 {
-                    stack.Add(stack[stack.Count] - 1);
-                    map[stack[stack.Count]].VisitBox("s");
+                    boxes[stack[stackNumber - 1]].VisitBox("w");
+                    stack.Add(stackNumber);
                 }
-                //stack.Add(stack[stack.Count] - 1);
+                else
+                {
+                    stackNumber--;
+                }
                 break;
             case 3:
-                if (stack.Count < 0 && stack.Count > boxNumber)
+                stackNumber++;
+                Debug.Log(boxes[stack.Count].VisitCheck() + " e");
+                if (boxes[stack.Count] != null && !boxes[stack.Count].VisitCheck() && stack.Count < boxNumber - 1)
                 {
-                    stack.Add(stack[stack.Count] - collumn);
-                    map[stack[stack.Count]].VisitBox("e");
+                    boxes[stack[stackNumber - 1]].VisitBox("e");
+                    stack.Add(stackNumber);
                 }
-                //stack.Add(stack[stack.Count] - collumn);
+                else
+                {
+                    stackNumber--;
+                }
                 break;
             default:
                 break;
