@@ -47,7 +47,7 @@ public class MazeGenerator : MonoBehaviour
 
     private void GenerateMaze()
     {
-        boxes[0].VisitBox("w");
+        boxes[0].VisitBox("e");
         stack.Add(0);
 
         for (int i = 0; i < 200 * boxNumber; i++)
@@ -58,13 +58,12 @@ public class MazeGenerator : MonoBehaviour
 
     private void SelectBox()
     {
-        int dir = Random.Range(0,3);
+        int dir = Random.Range(0,4);
         switch (dir)
         {
             case 0:
 
                 stackNumber++;
-                Debug.Log(boxes[stack.Count].VisitCheck() + " s");
                 if (boxes[stack.Count] != null && !boxes[stack.Count].VisitCheck() && stack.Count < boxNumber - 1 )
                 {
                     boxes[stack[stackNumber - 1]].VisitBox("s");                    
@@ -72,14 +71,15 @@ public class MazeGenerator : MonoBehaviour
                 }
                 else
                 {
+                    stack.Remove(stack.Count);
                     stackNumber--;
                 }
                 
 
                 break;
             case 1:
+
                 stackNumber++;
-                Debug.Log(boxes[stack.Count].VisitCheck() + " n");
                 if (boxes[stack.Count] != null && !boxes[stack.Count].VisitCheck() && stack.Count < boxNumber - 1)
                 {
                     boxes[stack[stackNumber - 1]].VisitBox("n");
@@ -87,12 +87,13 @@ public class MazeGenerator : MonoBehaviour
                 }
                 else
                 {
+                    stack.Remove(stack.Count);
                     stackNumber--;
                 }
                 break;
             case 2:
+
                 stackNumber++;
-                Debug.Log(boxes[stack.Count].VisitCheck() + " w");
                 if (boxes[stack.Count] != null && !boxes[stack.Count].VisitCheck() && stack.Count < boxNumber - 1)
                 {
                     boxes[stack[stackNumber - 1]].VisitBox("w");
@@ -100,12 +101,13 @@ public class MazeGenerator : MonoBehaviour
                 }
                 else
                 {
+                    stack.Remove(stack.Count);
                     stackNumber--;
                 }
                 break;
             case 3:
+
                 stackNumber++;
-                Debug.Log(boxes[stack.Count].VisitCheck() + " e");
                 if (boxes[stack.Count] != null && !boxes[stack.Count].VisitCheck() && stack.Count < boxNumber - 1)
                 {
                     boxes[stack[stackNumber - 1]].VisitBox("e");
@@ -113,6 +115,7 @@ public class MazeGenerator : MonoBehaviour
                 }
                 else
                 {
+                    stack.Remove(stack.Count);
                     stackNumber--;
                 }
                 break;
